@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colours</title>
+    <style>
+        :root {
+            --bg-main: #7e8ca5;
+            --bg-island: #e4f0ff;
+            --bg-secondary: #a5b7d9;
+            --text-dark: #161d29;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            background: var(--bg-main);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .palette-container {
+            background: var(--bg-island);
+            padding: 40px 48px;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .color-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .color-square {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            border: 2px solid var(--text-dark);
+            flex-shrink: 0;
+        }
+
+        .color-hex {
+            font-family: monospace;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            min-width: 85px;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-island);
+            color: var(--text-dark);
+            border: 2px solid var(--text-dark);
+            border-radius: 10px;
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .copy-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-dark);
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .copy-btn.copied {
+            background: var(--bg-secondary);
+        }
+
+        @media (hover: hover) {
+            .copy-btn:hover {
+                background: var(--bg-secondary);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="palette-container">
+        <div class="color-row">
+            <div class="color-square" style="background-color: #7e8ca5;"></div>
+            <span class="color-hex">#7e8ca5</span>
+            <button type="button" class="copy-btn" data-hex="#7e8ca5">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+        </div>
+
+        <div class="color-row">
+            <div class="color-square" style="background-color: #e4f0ff;"></div>
+            <span class="color-hex">#e4f0ff</span>
+            <button type="button" class="copy-btn" data-hex="#e4f0ff">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+        </div>
+
+        <div class="color-row">
+            <div class="color-square" style="background-color: #a5b7d9;"></div>
+            <span class="color-hex">#a5b7d9</span>
+            <button type="button" class="copy-btn" data-hex="#a5b7d9">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+        </div>
+
+        <div class="color-row">
+            <div class="color-square" style="background-color: #161d29;"></div>
+            <span class="color-hex">#161d29</span>
+            <button type="button" class="copy-btn" data-hex="#161d29">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const copyIcon = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+        const checkIcon = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+
+        function showCopiedState(btn) {
+            btn.innerHTML = checkIcon;
+            btn.classList.add('copied');
+            clearTimeout(btn._timeout);
+            btn._timeout = setTimeout(() => {
+                btn.innerHTML = copyIcon;
+                btn.classList.remove('copied');
+            }, 1500);
+        }
+
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const hex = btn.getAttribute('data-hex');
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(hex)
+                        .then(() => showCopiedState(btn))
+                        .catch(() => {
+                            fallbackCopy(hex);
+                            showCopiedState(btn);
+                        });
+                } else {
+                    fallbackCopy(hex);
+                    showCopiedState(btn);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
