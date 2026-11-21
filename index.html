@@ -1,284 +1,84 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" data-title-cs="Úvod" data-title-en="Home">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Úvod / Home</title>
-    <style>
-        :root {
-            --bg-main: #7e8ca5;
-            --bg-island: #e4f0ff;
-            --bg-secondary: #a5b7d9;
-            --text-dark: #161d29;
-        }
+    <meta name="description" content="Osobní web a portfolio projektů.">
+    <title>Úvod</title>
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://richardlukosz.cz/">
+    <meta property="og:title" content="Richard Lukosz">
+    <meta property="og:description" content="Personal website.">
+    <!-- <meta property="og:image" content="https://richardlukosz.cz/og-image.png"> -->
+    <!-- <meta name="twitter:card" content="summary_large_image"> -->
 
-        body { 
-            font-family: sans-serif; 
-            background: var(--text-dark); 
-            color: var(--text-dark); 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            min-height: 100dvh;
-            margin: 0; 
-            text-align: center; 
-            position: relative;
-            padding: 80px 20px 40px 20px; 
-        }
-
-        body:not(.lang-en-active) .lang-en { display: none; }
-        body.lang-en-active .lang-cs { display: none; }
-
-        .hero-container {
-            max-width: 760px;
-            width: 100%;
-            background: var(--bg-island);
-            padding: 45px 40px;
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        h1 { 
-            font-size: 3rem;
-            margin: 0;
-            line-height: 1.1;
-            color: var(--text-dark);
-        }
-
-        .subtitle {
-            font-size: 1.45rem;
-            color: var(--text-dark);
-            opacity: 0.75;
-            margin-top: 0;
-            margin-bottom: 24px;
-            font-weight: bold;
-            font-family: sans-serif;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .btn-primary {
-            background: var(--bg-island);
-            color: var(--text-dark);
-            border: 2px solid var(--text-dark);
-        }
-
-        .btn-secondary {
-            background: var(--bg-secondary);
-            color: var(--text-dark);
-            border: 2px solid var(--text-dark);
-        }
-
-        .btn-icon {
-            fill: var(--text-dark);
-            width: 24px;
-            height: 24px;
-        }
-
-        .lang-switcher {
-            position: fixed;
-            top: 20px; right: 20px; 
-            z-index: 100;
-        }
-
-        .lang-btn {
-            background: var(--bg-island);
-            color: var(--text-dark); 
-            border: 2px solid var(--text-dark);
-            padding: 8px 14px;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .hamburger-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--bg-island);
-            border: 2px solid var(--text-dark);
-            border-radius: 8px;
-            padding: 2px 10px;
-            color: var(--text-dark);
-            font-size: 1.6rem;
-            cursor: pointer;
-            z-index: 100;
-            transition: 0.2s;
-        }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 250px;
-            height: 100vh;
-            height: 100dvh;
-            background: var(--bg-island);
-            box-shadow: 5px 0 20px rgba(0, 0, 0, 0.25);
-            display: flex;
-            flex-direction: column;
-            padding: 85px 25px;
-            transition: 0.3s ease;
-            z-index: 99;
-        }
-
-        .mobile-menu.open { left: 0; }
-
-        .menu-link {
-            color: var(--bg-main);
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            margin-bottom: 20px;
-            transition: 0.2s;
-        }
-
-        .menu-link.active { 
-            color: var(--text-dark); 
-            text-decoration: underline;
-        }
-
-        @media (hover: hover) {
-            .lang-btn:hover, .hamburger-btn:hover { 
-                background: var(--bg-secondary); 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23161d29'/><text x='50' y='68' font-family='sans-serif' font-size='52' font-weight='bold' fill='%23e4f0ff' text-anchor='middle'>RL</text></svg>">
+    <script>
+        (function() {
+            const saved = localStorage.getItem('preferredLang');
+            const browserEn = !saved && navigator.language && !navigator.language.startsWith('cs') && !navigator.language.startsWith('sk');
+            if (saved === 'en' || browserEn) {
+                const html = document.documentElement;
+                html.classList.add('lang-en-active');
+                html.setAttribute('lang', 'en');
+                document.title = html.dataset.titleEn;
             }
-            .menu-link:hover { 
-                color: var(--text-dark); 
-            }
-            .btn-primary:hover {
-                background: var(--bg-secondary);
-            }
-            .btn-secondary:hover {
-                background: var(--bg-main);
-            }
-        }
-
-        @media (max-width: 600px) {
-            body { 
-                justify-content: flex-start;
-                padding: 75px 15px 30px 15px; 
-            }
-            .hero-container { padding: 30px 20px; border-radius: 18px; }
-            h1 { font-size: 2.3rem; }
-            .subtitle { font-size: 1.15rem; }
-            .action-buttons { flex-direction: column; width: 100%; gap: 10px; }
-            .btn { width: 100%; }
-        }
-    </style>
+        })();
+    </script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
 </head>
-
-<body> 
-    <button class="hamburger-btn" aria-label="Menu" id="menuToggleBtn">☰</button>
+<body>
+    <button class="hamburger-btn" aria-label="Menu" aria-expanded="false" id="menuToggleBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
     <nav class="mobile-menu" id="mobileMenu">
-        <a href="index.html" class="menu-link active">Domů / Home</a>
-        <a href="projects.html" class="menu-link">Projekty / Projects</a>
+        <a href="/index.html" class="menu-link active">
+            <span class="lang-cs">Domů</span>
+            <span class="lang-en">Home</span>
+        </a>
+        <a href="/projects.html" class="menu-link">
+            <span class="lang-cs">Projekty</span>
+            <span class="lang-en">Projects</span>
+        </a>
     </nav>
 
     <div class="lang-switcher">
-        <button class="lang-btn" id="langToggleBtn">EN</button>
+        <button class="lang-btn" id="langToggleBtn" aria-label="Přepnout jazyk / Switch language">EN</button>
     </div>
 
     <main class="hero-container">
-        <h1>
-            <span>Richard Lukosz</span>
-        </h1>
-        
+        <h1>Richard Lukosz</h1>
+
         <div class="subtitle">
             <span class="lang-cs">Student programu Molekulární biologie a biotechnologie</span>
             <span class="lang-en">Student of Molecular Biology and Biotechnology</span>
         </div>
 
         <div class="action-buttons">
-            <a href="projects.html" class="btn btn-secondary">
+            <a href="/projects.html" class="btn btn-secondary">
                 <span class="lang-cs">Prohlédnout Projekty</span>
                 <span class="lang-en">View My Projects</span>
             </a>
             <a href="https://github.com/richardlukosz" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
                 </svg>
                 <span>GitHub</span>
             </a>
             <a href="https://www.linkedin.com/in/richardlukosz/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
                 <span>LinkedIn</span>
             </a>
         </div>
     </main>
-
-    <script>
-        function setLanguage(lang) {
-            const body = document.body;
-            const htmlTag = document.documentElement;
-            const langBtn = document.getElementById('langToggleBtn');
-
-            if (lang === 'en') {
-                body.classList.add('lang-en-active');
-                htmlTag.setAttribute('lang', 'en');
-                if (langBtn) langBtn.innerText = 'CZ';
-            } else {
-                body.classList.remove('lang-en-active');
-                htmlTag.setAttribute('lang', 'cs');
-                if (langBtn) langBtn.innerText = 'EN';
-            }
-            
-            localStorage.setItem('preferredLang', lang);
-        }
-
-        const savedLang = localStorage.getItem('preferredLang') || 'cs';
-        setLanguage(savedLang);
-
-        document.getElementById('langToggleBtn').addEventListener('click', function() {
-            const currentLang = document.documentElement.getAttribute('lang');
-            const newLang = currentLang === 'cs' ? 'en' : 'cs';
-            setLanguage(newLang);
-        });
-
-        const menuToggleBtn = document.getElementById('menuToggleBtn');
-        const menu = document.getElementById('mobileMenu');
-
-        menuToggleBtn.addEventListener('click', function() {
-            menu.classList.toggle('open');
-        });
-
-        document.addEventListener('click', function(event) {
-            if (menu.classList.contains('open')) {
-                if (!menu.contains(event.target) && !menuToggleBtn.contains(event.target)) {
-                    menu.classList.remove('open'); 
-                }
-            }
-        });
-    </script>
 </body>
 </html>
