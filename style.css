@@ -67,7 +67,7 @@ body.page-top {
 html:not(.lang-en-active) .lang-en { display: none; }
 html.lang-en-active .lang-cs { display: none; }
 
-/* Kontejnery (ostrovy) */
+/* Ostrovy */
 .hero-container,
 .error-container,
 .page-header {
