@@ -282,13 +282,13 @@ html.lang-en-active .lang-cs { display: none; }
 }
 
 .lang-btn:focus-visible, .hamburger-btn:focus-visible {
-    outline: 2px solid var(--bg-island);
-    outline-offset: 3px;
+    outline: 4px solid var(--bg-island);
+    outline-offset: 4px;
 }
 
 .btn:focus-visible, .menu-link:focus-visible {
-    outline: 2px solid var(--text-dark);
-    outline-offset: 3px;
+    outline: 4px solid var(--text-dark);
+    outline-offset: 4px;
 }
 
 .mobile-menu {
