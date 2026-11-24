@@ -1,4 +1,4 @@
-function setLanguage(lang) {
+function setLanguage(lang, save = false) {
     const htmlTag = document.documentElement;
     const langBtn = document.getElementById('langToggleBtn');
 
@@ -14,18 +14,20 @@ function setLanguage(lang) {
         if (langBtn) langBtn.textContent = 'EN';
     }
 
-    localStorage.setItem('preferredLang', lang);
+    if (save) {
+        localStorage.setItem('preferredLang', lang);
+    }
 }
 
 const browserLang = navigator.language && (navigator.language.startsWith('cs') || navigator.language.startsWith('sk')) ? 'cs' : 'en';
 const savedLang = localStorage.getItem('preferredLang') || browserLang;
-setLanguage(savedLang);
+setLanguage(savedLang, false);
 
 const langToggleBtn = document.getElementById('langToggleBtn');
 if (langToggleBtn) {
     langToggleBtn.addEventListener('click', () => {
         const currentLang = document.documentElement.getAttribute('lang');
-        setLanguage(currentLang === 'cs' ? 'en' : 'cs');
+        setLanguage(currentLang === 'cs' ? 'en' : 'cs', true);
     });
 }
 
